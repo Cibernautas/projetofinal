@@ -1,0 +1,196 @@
+function doPost(e) {
+  try {
+    const SPREADSHEET_ID = "1rF19ZUm0FymIjWRU5Qhzn_LkGmJT1i9akgyskPEsrr4";
+    const SHEET_NAME = "RESPOSTAS";
+    const MIDIA_SHEET_NAME = "MIDIA";
+    const DRIVE_FOLDER_ID = "1hpZIm3OedEs82yeLN6IG-z3RUu9QMv3w";
+
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME);
+    const midiaSheet = ss.getSheetByName(MIDIA_SHEET_NAME);
+    const folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
+    const params = e.parameter;
+
+    Logger.log(JSON.stringify(params));
+
+    let midiaLinks = [];
+    for (let key in params) {
+      if (key.startsWith("MidiaBase64_")) {
+        const base64 = params[key].split(',')[1];
+        const blob = Utilities.newBlob(Utilities.base64Decode(base64), "image/jpeg", `foto_${Date.now()}.jpg`);
+        const file = folder.createFile(blob);
+        file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+        midiaLinks.push(getDirectDownloadLink(file));
+      }
+    }
+
+    let assinaturaURL = "Sem assinatura";
+    if (params.AssinaturaBase64) {
+      const base64Data = params.AssinaturaBase64.split(',')[1];
+      const blob = Utilities.newBlob(Utilities.base64Decode(base64Data), "image/png", `assinatura_${params.Motorista}_${Date.now()}.png`);
+      const file = folder.createFile(blob);
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      assinaturaURL = getDirectDownloadLink(file);
+    }
+
+    const pdfURL = gerarChecklistPDF(params, assinaturaURL, midiaLinks);
+
+    const novaLinha = [
+      new Date(),
+      params.Motorista || "",
+      params.PostoGraduacao || "",
+      params.RG || "",
+      params.DataCautela || "",
+      params.HoraCautela || "",
+      params.ValidadeCNH || "",
+      params.CategoriaCNH || "",
+      params.Veiculo || "",
+      params.Prefixo || "",
+      params.Placa || "",
+      params.KmAtual || "",
+      params.KmProxRevisao || "",
+      params.NivelAgua || "",
+      params.NivelOleo || "",
+      params.NivelCombustivel || "",
+      params.Pneus || "",
+      params.GiroflexSirene || "",
+      params.LampadasQueimadas || "",
+      params.Parabrisa || "",
+      params.Radio || "",
+      params.EquipamentosObrigatorios || "",
+      params.QtdCones || "",
+      params.OutrosProblemas || "",
+      assinaturaURL,
+      pdfURL
+    ];
+
+    sheet.appendRow(novaLinha);
+    const rowIndex = sheet.getLastRow();
+
+    if (midiaLinks.length > 0) {
+      midiaSheet.appendRow([rowIndex, ...midiaLinks]);
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      message: "Checklist enviado e PDF gerado!",
+      pdf: pdfURL
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "error",
+      message: err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+function gerarChecklistPDF(data, assinaturaURL, midiaLinks) {
+  const folderId = '1hpZIm3OedEs82yeLN6IG-z3RUu9QMv3w';
+  const templateId = '1FoRErwkfgz1otLS1PGwRoFpAWC_qth3V2vNmDP9_ge4';
+
+  const copy = DriveApp.getFileById(templateId).makeCopy(`Checklist - ${data.Motorista}`, DriveApp.getFolderById(folderId));
+  const presentation = SlidesApp.openById(copy.getId());
+  let slide = presentation.getSlides()[0];
+
+  const margin = 30;
+  const larguraCaixa = 540;
+  const maxY = 750;
+  let y = 30;
+
+  // Função para adicionar blocos de texto com controle de altura e espaçamento customizado
+  function adicionarBloco(titulo, conteudo, espacoApos = 10) {
+    if (y + 40 > maxY) {
+      slide = presentation.appendSlide(SlidesApp.PredefinedLayout.BLANK);
+      y = 30;
+    }
+    const tituloShape = slide.insertTextBox(titulo, margin, y, larguraCaixa, 20);
+    tituloShape.getText().getTextStyle().setBold(true).setFontSize(18);
+    y += 22;  // diminui mais um pouco
+
+    const conteudoShape = slide.insertTextBox(conteudo, margin, y, larguraCaixa, 400);
+    y += conteudoShape.getHeight() + espacoApos;
+  }
+
+  // Título principal
+  const tituloShape = slide.insertTextBox("CHECKLIST DE CAUTELA DE VIATURAS", margin, y, larguraCaixa, 30);
+  tituloShape.getText().getTextStyle().setBold(true).setFontSize(22);
+  y += 35;  // menos espaço aqui também
+
+  // Bloco — Dados do motorista
+  const dadosMotorista = `
+Motorista: ${data.Motorista}
+Posto/Graduação: ${data.PostoGraduacao}
+RG: ${data.RG}
+Data Cautela: ${data.DataCautela}
+Hora: ${data.HoraCautela}
+Validade CNH: ${data.ValidadeCNH}
+Categoria CNH: ${data.CategoriaCNH}
+Veículo: ${data.Veiculo}
+Prefixo: ${data.Prefixo}
+Placa: ${data.Placa}
+Km Atual: ${data.KmAtual}
+Km Próx. Revisão: ${data.KmProxRevisao}
+`;
+  adicionarBloco("DADOS DO MOTORISTA", dadosMotorista, 4);  // colado
+
+  // Bloco — Checklist técnico
+  const checklistTecnico = `
+Nível de Água: ${data.NivelAgua}
+Nível de Óleo: ${data.NivelOleo}
+Combustível: ${data.NivelCombustivel}
+Pneus: ${data.Pneus}
+Giroflex/Sirene: ${data.GiroflexSirene}
+Lâmpadas Queimadas: ${data.LampadasQueimadas}
+Parabrisa: ${data.Parabrisa}
+Rádio: ${data.Radio}
+Equipamentos Obrigatórios: ${data.EquipamentosObrigatorios}
+Qtd Cones: ${data.QtdCones}
+Outros Problemas: ${data.OutrosProblemas}
+`;
+  adicionarBloco("CHECKLIST DE VERIFICAÇÃO", checklistTecnico, 10);
+
+  // Bloco — Mídias
+  if (midiaLinks.length > 0) {
+    const midiasTexto = midiaLinks.join("\n");
+    adicionarBloco("MÍDIAS", midiasTexto, 10);
+  }
+
+  // Bloco — Assinatura
+  if (assinaturaURL && assinaturaURL !== "Sem assinatura") {
+    if (y + 80 > maxY) {
+      slide = presentation.appendSlide(SlidesApp.PredefinedLayout.BLANK);
+      y = 30;
+    }
+    const tituloShape = slide.insertTextBox("ASSINATURA", margin, y, larguraCaixa, 20);
+    tituloShape.getText().getTextStyle().setBold(true).setFontSize(18);
+    y += 22;
+    const blob = UrlFetchApp.fetch(assinaturaURL).getBlob();
+    slide.insertImage(blob, margin, y, 200, 60);
+    y += 65;
+  }
+
+  presentation.saveAndClose();
+
+  const pdf = DriveApp.getFileById(presentation.getId()).getAs("application/pdf");
+  const folder = DriveApp.getFolderById(folderId);
+  const pdfFile = folder.createFile(pdf);
+  pdfFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+  return "https://drive.google.com/uc?export=download&id=" + pdfFile.getId();
+}
+function getDirectDownloadLink(file) {
+  return "https://drive.google.com/uc?export=download&id=" + file.getId();
+}
+function consultarMidias(idRegistro) {
+  const PLANILHA_ID = "1rF19ZUm0FymIjWRU5Qhzn_LkGmJT1i9akgyskPEsrr4";
+  const midiasSheet = SpreadsheetApp.openById(PLANILHA_ID).getSheetByName("MIDIA");
+  const dados = midiasSheet.getDataRange().getValues();
+
+  for (let i = 1; i < dados.length; i++) {
+    if (dados[i][0] == idRegistro) {
+      return dados[i].slice(1).filter(String).join(" | ");
+    }
+  }
+
+  return "Sem mídias encontradas";
+}

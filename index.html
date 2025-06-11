@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checklist - Cautela de Viaturas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+</head>
+
+<body>
+
+    <h2>Checklist de Cautela de Viaturas - 1º BPM</h2>
+
+    <div class="alerta-limite">
+        ⚠️ <strong>Aviso:</strong> Este formulário permite no máximo <strong>8 fotos capturadas pela câmera</strong>.
+    </div>
+
+    <form id="checklist-form">
+
+        <label>Motorista*</label>
+        <input type="text" name="Motorista" required>
+
+        <label>Posto/Graduação*</label>
+        <input type="text" name="PostoGraduacao" required>
+
+        <label>RG*</label>
+        <input type="text" name="RG" required>
+
+        <label>Data e Hora da Cautela*</label>
+        <input type="text" name="DataCautela" placeholder="DD/MM/AAAA ou DDMMAAAA" pattern="\d{2}/\d{2}/\d{4}|\d{8}" required>
+        <input type="time" name="HoraCautela" min="00:00" max="23:59" required>
+
+        <label>Validade da CNH*</label>
+        <input type="text" name="ValidadeCNH" placeholder="DD/MM/AAAA ou DDMMAAAA" pattern="\d{2}/\d{2}/\d{4}|\d{8}" required>
+
+        <label>Categoria da CNH*</label>
+        <select name="CategoriaCNH" required>
+      <option value="">Selecione...</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="AB">AB</option>
+      <option value="C">C</option>
+      <option value="AC">AC</option>
+      <option value="D">D</option>
+      <option value="AD">AD</option>
+      <option value="E">E</option>
+      <option value="AE">AE</option>
+    </select>
+
+        <label>Veículo*</label>
+        <select name="Veiculo" required>
+      <option value="">Selecione...</option>
+      <option value="Duster">Duster</option>
+      <option value="Gol">Gol</option>
+      <option value="Polo">Polo</option>
+      <option value="L200 Triton">L200 Triton</option>
+      <option value="Ranger">Ranger</option>
+      <option value="XRE 300">XRE 300</option>
+      <option value="VAN">VAN</option>
+      <option value="Micro-onibus">Micro-onibus</option>
+      <option value="Yaris">Yaris</option>
+      <option value="Quadriciclo">Quadriciclo</option>
+      <option value="Corolla">Corolla</option>
+    </select>
+
+        <label>Prefixo*</label>
+        <input type="text" name="Prefixo" required>
+
+        <label>Placa*</label>
+        <input type="text" name="Placa" required>
+
+        <label>Km Atual*</label>
+        <input type="number" name="KmAtual" required>
+
+        <label>Km da Próx. Revisão</label>
+        <input type="number" name="KmProxRevisao">
+
+        <label>Nível de Água do Radiador</label>
+        <select name="NivelAgua">
+      <option>Normal</option>
+      <option>Baixo</option>
+    </select>
+
+        <label>Nível do Óleo do Motor*</label>
+        <select name="NivelOleo" required>
+      <option>Normal</option>
+      <option>Baixo</option>
+    </select>
+
+        <label>Nível do Combustível*</label>
+        <select name="NivelCombustivel" required>
+      <option>1/1</option>
+      <option>3/4</option>
+      <option>1/2</option>
+      <option>1/4</option>
+      <option>Reserva</option>
+      <option>Outro</option>
+    </select>
+
+        <label>Pneus*</label>
+        <select name="Pneus" required>
+      <option>Bons</option>
+      <option>Gastos/careca</option>
+      <option>Outro</option>
+    </select>
+
+        <label>Giroflex e Sirene*</label>
+        <select name="GiroflexSirene" required>
+      <option>Funcionam</option>
+      <option>Giroflex danificado</option>
+      <option>Sirene danificada</option>
+      <option>Nenhum funciona</option>
+      <option>Outro</option>
+    </select>
+
+        <label>Lâmpadas queimadas</label>
+        <textarea name="LampadasQueimadas" rows="3"></textarea>
+
+        <label>Parabrisa*</label>
+        <select name="Parabrisa" required>
+      <option>Perfeito estado</option>
+      <option>Danificado</option>
+      <option>Outro</option>
+    </select>
+
+        <label>Rádio*</label>
+        <select name="Radio" required>
+      <option>Funcionando</option>
+      <option>Não funciona</option>
+      <option>Outro</option>
+    </select>
+
+        <label>Equipamentos Obrigatórios</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="EquipamentosObrigatorios" value="Chave de roda"> Chave de roda</label>
+            <label><input type="checkbox" name="EquipamentosObrigatorios" value="Macaco"> Macaco</label>
+            <label><input type="checkbox" name="EquipamentosObrigatorios" value="Pneu de step"> Pneu de step</label>
+            <label><input type="checkbox" name="EquipamentosObrigatorios" value="Triângulo"> Triângulo</label>
+            <label><input type="checkbox" name="EquipamentosObrigatorios" value="Cones"> Cones</label>
+        </div>
+
+        <label>Quantidade de Cones</label>
+        <input type="number" name="QtdCones">
+
+        <label>Outros Problemas - Descrever</label>
+        <textarea name="OutrosProblemas" rows="4"></textarea>
+
+        <label>Fotos da Viatura</label>
+        <div id="camera-container">
+          <video id="camera" autoplay playsinline muted></video>
+          <button type="button" id="capture">📷 Tirar Foto</button>
+        </div>
+        <div id="previews"></div>
+
+
+
+        <label>Selecionar fotos da galeria</label>
+        <input type="file" id="midia" name="midia" accept="image/*" multiple>
+
+        <label>Assinatura:</label>
+        <canvas id="signature-pad"></canvas>
+        <input type="hidden" name="AssinaturaBase64" id="assinatura-base64">
+        <button type="button" id="clear-signature">Limpar Assinatura</button>
+
+        <br><br>
+        <br><br>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <button type="submit" id="submit-btn">Enviar</button>
+            <small class="envio-aviso">O envio pode levar até 1 minuto.</small>
+        </div>
+
+    </form>
+
+    <script src="base.js"></script>
+</body>
+
+</html>

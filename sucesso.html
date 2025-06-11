@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Checklist Enviado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="sucesso.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Formulário enviado com sucesso!</h2>
+    <p>Seu PDF foi gerado. Clique abaixo para baixar:</p>
+    <a id="pdf-link" href="#" target="_blank" class="btn-download">Baixar PDF</a>
+  </div>
+
+  <script>
+    const pdfUrl = sessionStorage.getItem("pdfUrl");
+    if (pdfUrl) {
+      document.getElementById("pdf-link").href = pdfUrl;
+    } else {
+      document.querySelector(".container").innerHTML = "<h2>Erro</h2><p>PDF não encontrado. Tente reenviar o formulário.</p>";
+    }
+  </script>
+</body>
+</html>
