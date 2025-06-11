@@ -1,3 +1,6 @@
+
+#########################################   Codigos.gs
+
 function doPost(e) {
   try {
     const SPREADSHEET_ID = "1rF19ZUm0FymIjWRU5Qhzn_LkGmJT1i9akgyskPEsrr4";
@@ -14,14 +17,23 @@ function doPost(e) {
     Logger.log(JSON.stringify(params));
 
     let midiaLinks = [];
+    let midiasId = "Sem mídia";
+
     for (let key in params) {
       if (key.startsWith("MidiaBase64_")) {
+        if (midiasId === "Sem mídia") {
+          midiasId = new Date().getTime(); // só cria se tiver ao menos uma mídia
+        }
         const base64 = params[key].split(',')[1];
         const blob = Utilities.newBlob(Utilities.base64Decode(base64), "image/jpeg", `foto_${Date.now()}.jpg`);
         const file = folder.createFile(blob);
         file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
         midiaLinks.push(getDirectDownloadLink(file));
       }
+    }
+
+    if (midiaLinks.length > 0) {
+      midiaSheet.appendRow([midiasId, ...midiaLinks]);
     }
 
     let assinaturaURL = "Sem assinatura";
@@ -60,16 +72,12 @@ function doPost(e) {
       params.EquipamentosObrigatorios || "",
       params.QtdCones || "",
       params.OutrosProblemas || "",
+      midiasId,         // <-- agora aqui vai o ID da mídia
       assinaturaURL,
       pdfURL
     ];
 
     sheet.appendRow(novaLinha);
-    const rowIndex = sheet.getLastRow();
-
-    if (midiaLinks.length > 0) {
-      midiaSheet.appendRow([rowIndex, ...midiaLinks]);
-    }
 
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
@@ -84,6 +92,9 @@ function doPost(e) {
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }
+
+#########################################   pdf.gs
+
 function gerarChecklistPDF(data, assinaturaURL, midiaLinks) {
   const folderId = '1hpZIm3OedEs82yeLN6IG-z3RUu9QMv3w';
   const templateId = '1FoRErwkfgz1otLS1PGwRoFpAWC_qth3V2vNmDP9_ge4';
@@ -178,9 +189,16 @@ Outros Problemas: ${data.OutrosProblemas}
 
   return "https://drive.google.com/uc?export=download&id=" + pdfFile.getId();
 }
+
+#########################################   getdirect.gs
+
 function getDirectDownloadLink(file) {
   return "https://drive.google.com/uc?export=download&id=" + file.getId();
 }
+
+
+#########################################   consultarMidias.gs
+
 function consultarMidias(idRegistro) {
   const PLANILHA_ID = "1rF19ZUm0FymIjWRU5Qhzn_LkGmJT1i9akgyskPEsrr4";
   const midiasSheet = SpreadsheetApp.openById(PLANILHA_ID).getSheetByName("MIDIA");
