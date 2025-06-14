@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 signaturePad.clear();
                 previewsContainer.innerHTML = "";
                 fotosCapturadas = [];
-                window.location.href = "sucesso.html";
+                window.location.href = "/../sucesso.html";
             } else {
                 alert("Erro ao gerar PDF: " + (result.message || "Erro desconhecido"));
             }
