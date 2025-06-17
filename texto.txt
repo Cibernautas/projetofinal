@@ -3,10 +3,10 @@
 
 function doPost(e) {
   try {
-    const SPREADSHEET_ID = "1rF19ZUm0FymIjWRU5Qhzn_LkGmJT1i9akgyskPEsrr4";
-    const SHEET_NAME = "RESPOSTAS";
+    const SPREADSHEET_ID = "12IQiTtVMCg2ie6GEgCdTnk-NdZdBE9Gs_h3gXXGSZWs";
+    const SHEET_NAME = "DENUNCIA";
     const MIDIA_SHEET_NAME = "MIDIA";
-    const DRIVE_FOLDER_ID = "1hpZIm3OedEs82yeLN6IG-z3RUu9QMv3w";
+    const DRIVE_FOLDER_ID = "1zaJ0UXaoediou4GQQp9YS_LSAwYBtlFU";
 
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     const sheet = ss.getSheetByName(SHEET_NAME);
@@ -17,13 +17,8 @@ function doPost(e) {
     Logger.log(JSON.stringify(params));
 
     let midiaLinks = [];
-    let midiasId = "Sem mídia";
-
     for (let key in params) {
       if (key.startsWith("MidiaBase64_")) {
-        if (midiasId === "Sem mídia") {
-          midiasId = new Date().getTime(); // só cria se tiver ao menos uma mídia
-        }
         const base64 = params[key].split(',')[1];
         const blob = Utilities.newBlob(Utilities.base64Decode(base64), "image/jpeg", `foto_${Date.now()}.jpg`);
         const file = folder.createFile(blob);
@@ -32,56 +27,63 @@ function doPost(e) {
       }
     }
 
-    if (midiaLinks.length > 0) {
-      midiaSheet.appendRow([midiasId, ...midiaLinks]);
-    }
-
     let assinaturaURL = "Sem assinatura";
-    if (params.AssinaturaBase64) {
+    if (params.AssinaturaBase64 && params.AssinaturaBase64.includes(",")) {
       const base64Data = params.AssinaturaBase64.split(',')[1];
-      const blob = Utilities.newBlob(Utilities.base64Decode(base64Data), "image/png", `assinatura_${params.Motorista}_${Date.now()}.png`);
+      const blob = Utilities.newBlob(Utilities.base64Decode(base64Data), "image/png", `assinatura_${params.Nome}_${Date.now()}.png`);
       const file = folder.createFile(blob);
       file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
       assinaturaURL = getDirectDownloadLink(file);
     }
 
-    const pdfURL = gerarChecklistPDF(params, assinaturaURL, midiaLinks);
+    const pdfURL = gerarDenunciaPDF(params, assinaturaURL, midiaLinks); // chamada externa
 
     const novaLinha = [
       new Date(),
-      params.Motorista || "",
-      params.PostoGraduacao || "",
-      params.RG || "",
-      params.DataCautela || "",
-      params.HoraCautela || "",
-      params.ValidadeCNH || "",
-      params.CategoriaCNH || "",
-      params.Veiculo || "",
-      params.Prefixo || "",
-      params.Placa || "",
-      params.KmAtual || "",
-      params.KmProxRevisao || "",
-      params.NivelAgua || "",
-      params.NivelOleo || "",
-      params.NivelCombustivel || "",
-      params.Pneus || "",
-      params.GiroflexSirene || "",
-      params.LampadasQueimadas || "",
-      params.Parabrisa || "",
-      params.Radio || "",
-      params.EquipamentosObrigatorios || "",
-      params.QtdCones || "",
-      params.OutrosProblemas || "",
-      midiasId,         // <-- agora aqui vai o ID da mídia
+      params.Nome || "",
+      params.Documento || "",
+      params.Localizacao || "",
+      params.TipoProblema || "",
+      params.DescricaoProblema || "",
       assinaturaURL,
       pdfURL
     ];
 
     sheet.appendRow(novaLinha);
+    const rowIndex = sheet.getLastRow();
+
+    if (midiaLinks.length > 0) {
+      midiaSheet.appendRow([rowIndex, ...midiaLinks]);
+    }
+
+    // Envio de e-mail fixo
+    const destinatario = "marcosfeitosapalmas2@gmail.com";
+    const assunto = `Nova Denúncia - ${params.TipoProblema || "Problema não especificado"}`;
+    const corpo = `
+Olá,
+
+Uma nova denúncia foi registrada:
+
+📌 Nome: ${params.Nome || "Não informado"}
+
+📍 Localização: ${params.Localizacao || "Não informado"}
+
+📄 Tipo de Problema: ${params.TipoProblema || "Não informado"}
+
+
+📝 Descrição:
+${params.DescricaoProblema || "Não informado"}
+
+📎 Link do PDF:
+${pdfURL}
+
+    `;
+
+    MailApp.sendEmail(destinatario, assunto, corpo);
 
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
-      message: "Checklist enviado e PDF gerado!",
+      message: "Denúncia registrada e e-mail enviado!",
       pdf: pdfURL
     })).setMimeType(ContentService.MimeType.JSON);
 
@@ -93,22 +95,26 @@ function doPost(e) {
   }
 }
 
+function getDirectDownloadLink(file) {
+  return "https://drive.google.com/uc?export=download&id=" + file.getId();
+}
+
+
 #########################################   pdf.gs
 
-function gerarChecklistPDF(data, assinaturaURL, midiaLinks) {
-  const folderId = '1hpZIm3OedEs82yeLN6IG-z3RUu9QMv3w';
-  const templateId = '1FoRErwkfgz1otLS1PGwRoFpAWC_qth3V2vNmDP9_ge4';
+function gerarDenunciaPDF(data, assinaturaURL, midiaLinks) {
+  const folderId = "1zaJ0UXaoediou4GQQp9YS_LSAwYBtlFU";
+  const templateId = "1OfdeHjlEZ8LuWLG4zOAFcWF5mtMuZzNWkFBFjPQeWd0";
 
-  const copy = DriveApp.getFileById(templateId).makeCopy(`Checklist - ${data.Motorista}`, DriveApp.getFolderById(folderId));
+  const copy = DriveApp.getFileById(templateId).makeCopy(`Denúncia - ${data.Nome}`, DriveApp.getFolderById(folderId));
   const presentation = SlidesApp.openById(copy.getId());
   let slide = presentation.getSlides()[0];
 
+  let y = 30;
   const margin = 30;
   const larguraCaixa = 540;
   const maxY = 750;
-  let y = 30;
 
-  // Função para adicionar blocos de texto com controle de altura e espaçamento customizado
   function adicionarBloco(titulo, conteudo, espacoApos = 10) {
     if (y + 40 > maxY) {
       slide = presentation.appendSlide(SlidesApp.PredefinedLayout.BLANK);
@@ -116,57 +122,27 @@ function gerarChecklistPDF(data, assinaturaURL, midiaLinks) {
     }
     const tituloShape = slide.insertTextBox(titulo, margin, y, larguraCaixa, 20);
     tituloShape.getText().getTextStyle().setBold(true).setFontSize(18);
-    y += 22;  // diminui mais um pouco
+    y += 22;
 
     const conteudoShape = slide.insertTextBox(conteudo, margin, y, larguraCaixa, 400);
     y += conteudoShape.getHeight() + espacoApos;
   }
 
-  // Título principal
-  const tituloShape = slide.insertTextBox("CHECKLIST DE CAUTELA DE VIATURAS", margin, y, larguraCaixa, 30);
-  tituloShape.getText().getTextStyle().setBold(true).setFontSize(22);
-  y += 35;  // menos espaço aqui também
+  adicionarBloco("DENÚNCIA DE INFRAESTRUTURA URBANA", `Data de Envio: ${new Date().toLocaleString()}`, 12);
 
-  // Bloco — Dados do motorista
-  const dadosMotorista = `
-Motorista: ${data.Motorista}
-Posto/Graduação: ${data.PostoGraduacao}
-RG: ${data.RG}
-Data Cautela: ${data.DataCautela}
-Hora: ${data.HoraCautela}
-Validade CNH: ${data.ValidadeCNH}
-Categoria CNH: ${data.CategoriaCNH}
-Veículo: ${data.Veiculo}
-Prefixo: ${data.Prefixo}
-Placa: ${data.Placa}
-Km Atual: ${data.KmAtual}
-Km Próx. Revisão: ${data.KmProxRevisao}
-`;
-  adicionarBloco("DADOS DO MOTORISTA", dadosMotorista, 4);  // colado
+  const dadosDenuncia = `
+Nome: ${data.Nome}
+Documento: ${data.Documento}
+Localização: ${data.Localizacao}
+Tipo de Problema: ${data.TipoProblema}
+Descrição: ${data.DescricaoProblema}
+  `;
+  adicionarBloco("DADOS DA DENÚNCIA", dadosDenuncia);
 
-  // Bloco — Checklist técnico
-  const checklistTecnico = `
-Nível de Água: ${data.NivelAgua}
-Nível de Óleo: ${data.NivelOleo}
-Combustível: ${data.NivelCombustivel}
-Pneus: ${data.Pneus}
-Giroflex/Sirene: ${data.GiroflexSirene}
-Lâmpadas Queimadas: ${data.LampadasQueimadas}
-Parabrisa: ${data.Parabrisa}
-Rádio: ${data.Radio}
-Equipamentos Obrigatórios: ${data.EquipamentosObrigatorios}
-Qtd Cones: ${data.QtdCones}
-Outros Problemas: ${data.OutrosProblemas}
-`;
-  adicionarBloco("CHECKLIST DE VERIFICAÇÃO", checklistTecnico, 10);
-
-  // Bloco — Mídias
   if (midiaLinks.length > 0) {
-    const midiasTexto = midiaLinks.join("\n");
-    adicionarBloco("MÍDIAS", midiasTexto, 10);
+    adicionarBloco("MÍDIAS ENVIADAS", midiaLinks.join("\n"));
   }
 
-  // Bloco — Assinatura
   if (assinaturaURL && assinaturaURL !== "Sem assinatura") {
     if (y + 80 > maxY) {
       slide = presentation.appendSlide(SlidesApp.PredefinedLayout.BLANK);
@@ -181,15 +157,12 @@ Outros Problemas: ${data.OutrosProblemas}
   }
 
   presentation.saveAndClose();
-
   const pdf = DriveApp.getFileById(presentation.getId()).getAs("application/pdf");
   const folder = DriveApp.getFolderById(folderId);
   const pdfFile = folder.createFile(pdf);
   pdfFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-
   return "https://drive.google.com/uc?export=download&id=" + pdfFile.getId();
 }
-
 #########################################   getdirect.gs
 
 function getDirectDownloadLink(file) {
@@ -199,8 +172,9 @@ function getDirectDownloadLink(file) {
 
 #########################################   consultarMidias.gs
 
-function consultarMidias(idRegistro) {
-  const PLANILHA_ID = "1rF19ZUm0FymIjWRU5Qhzn_LkGmJT1i9akgyskPEsrr4";
+function myFunction() {
+  function consultarMidias(idRegistro) {
+  const PLANILHA_ID = "12IQiTtVMCg2ie6GEgCdTnk-NdZdBE9Gs_h3gXXGSZWs";
   const midiasSheet = SpreadsheetApp.openById(PLANILHA_ID).getSheetByName("MIDIA");
   const dados = midiasSheet.getDataRange().getValues();
 
@@ -211,4 +185,6 @@ function consultarMidias(idRegistro) {
   }
 
   return "Sem mídias encontradas";
+}
+
 }
