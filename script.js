@@ -4,10 +4,10 @@ function redirecionar(tipo) {
       window.location.href = "infraestrutura/infra.html";
       break;
     case 'iluminacao':
-      window.location.href = 'iluminacao.html';
+      window.location.href = 'iluminação/ilumi.html';
       break;
     case 'meioambiente':
-      window.location.href = 'meioambiente.html';
+      window.location.href = 'meioambiente/mato.html';
       break;
     default:
       alert('Tipo de formulário inválido');

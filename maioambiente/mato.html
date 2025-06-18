@@ -4,19 +4,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Denúncia - Infraestrutura Urbana</title>
+  <title>Denúncia - Meio Ambiente</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 </head>
 
 <body>
-  <h2>Formulário de Denúncia - Problemas de Infraestrutura Urbana</h2>
+<h2>Formulário de Denúncia - Problemas Ambientais</h2>
 
   <div class="alerta-limite">
     ⚠️ <strong>Aviso:</strong> Este formulário permite no máximo <strong>8 fotos capturadas pela câmera</strong>.
   </div>
 
   <form id="checklist-form">
+    <input type="hidden" name="TipoFormulario" value="MEIO_AMBIENTE">
+
     <label>Nome Completo*</label>
     <input type="text" name="Nome" required>
 

@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Envia para Google Apps Script
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbxjsMNVIUfjpgHzCRI7yAz9bj3EX9CHCoy2VbQb8Sw0ft41wKdr3dJLIKtTK7JkZ1EqPQ/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbzAt4Ix5Nug-FxDzh3kTCuczHpnZ4NzTTmzDhH3k68IixGobSjAKp9wCteNHu-L93gvxA/exec", {
                 method: "POST",
                 body: formData
             });
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 signaturePad.clear();
                 previewsContainer.innerHTML = "";
                 fotosCapturadas = [];
-                window.location.href = "sucesso.html";
+                window.location.href = "../ligação_bd/sucesso.html";
             } else {
                 alert("Erro ao gerar PDF: " + (result.message || "Erro desconhecido"));
             }
