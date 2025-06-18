@@ -1,7 +1,7 @@
 function redirecionar(tipo) {
   switch (tipo) {
     case 'infraestrutura':
-      window.location.href = "/infraestrutura/index.html";
+      window.location.href = "infraestrutura/infra.html";
       break;
     case 'iluminacao':
       window.location.href = 'iluminacao.html';
