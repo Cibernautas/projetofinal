@@ -10,13 +10,14 @@
 </head>
 
 <body>
-  <h2>Formulário de Denúncia - Problemas de Infraestrutura Urbana</h2>
-
+  <h2>Formulário de Denúncia - Iluminação Pública</h2>
   <div class="alerta-limite">
     ⚠️ <strong>Aviso:</strong> Este formulário permite no máximo <strong>8 fotos capturadas pela câmera</strong>.
   </div>
 
   <form id="checklist-form">
+    <input type="hidden" name="TipoFormulario" value="ILUMINACAO">
+
     <label>Nome Completo*</label>
     <input type="text" name="Nome" required>
 
@@ -63,7 +64,7 @@
     </div>
   </form>
 
-  <script src="base.js"></script>
+  <script src="../ligação_bd/base.js"></script>
 </body>
 
 </html>

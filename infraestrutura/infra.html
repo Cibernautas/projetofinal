@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Denúncia - Infraestrutura Urbana</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+</head>
+
+<body>
+  <h2>Formulário de Denúncia - Problemas de Infraestrutura Urbana</h2>
+
+  <div class="alerta-limite">
+    ⚠️ <strong>Aviso:</strong> Este formulário permite no máximo <strong>8 fotos capturadas pela câmera</strong>.
+  </div>
+
+  <form id="checklist-form">
+    <label>Nome Completo*</label>
+    <input type="text" name="Nome" required>
+
+    <label>CPF ou RG</label>
+    <input type="text" name="Documento">
+
+    <label>Endereço ou Localização do Problema*</label>
+    <textarea name="Localizacao" rows="3" required></textarea>
+
+    <label>Tipo de Problema*</label>
+    <select name="TipoProblema" required>
+      <option value="">Selecione...</option>
+      <option value="Buraco na rua">Buraco na rua</option>
+      <option value="Iluminação queimada">Iluminação queimada</option>
+      <option value="Problema de esgoto">Problema de esgoto</option>
+      <option value="Calçada danificada">Calçada danificada</option>
+      <option value="Sinalização ausente ou danificada">Sinalização ausente ou danificada</option>
+      <option value="Outro">Outro</option>
+    </select>
+
+    <label>Descrição Detalhada do Problema*</label>
+    <textarea name="DescricaoProblema" rows="5" required></textarea>
+
+    
+    <label>Capturar Foto do Local</label>
+    <div id="camera-container">
+      <video id="camera" autoplay playsinline muted></video>
+      <button type="button" id="capture">📷 Tirar Foto</button>
+    </div>
+    <div id="previews"></div>
+
+    <label>Selecionar fotos da galeria</label>
+    <input type="file" id="midia" name="midia" accept="image/*" multiple>
+
+    <label>Assinatura (opcional)</label>
+    <canvas id="signature-pad"></canvas>
+    <input type="hidden" name="AssinaturaBase64" id="assinatura-base64">
+    <button type="button" id="clear-signature">Limpar Assinatura</button>
+
+    <br><br>
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <button type="submit" id="submit-btn">Enviar</button>
+      <small class="envio-aviso">O envio pode levar até 1 minuto.</small>
+    </div>
+  </form>
+
+  <script src="../ligação_bd/base.js"></script>
+</body>
+
+</html>
