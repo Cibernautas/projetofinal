@@ -9,14 +9,18 @@
 <body>
   <div class="container">
     <h2>Formulário enviado com sucesso!</h2>
-    <p>Seu PDF foi gerado. Clique abaixo para baixar:</p>
+    <p>Seu PDF foi gerado. Clique abaixo para baixar:</p> 
     <a id="pdf-link" href="#" target="_blank" class="btn-download">Baixar PDF</a>
+    <p>Protocolo da denúncia: <strong id="protocolo-id">Carregando...</strong></p>
   </div>
 
   <script>
     const pdfUrl = sessionStorage.getItem("pdfUrl");
+    const protocoloId = sessionStorage.getItem("denunciaId");
+
     if (pdfUrl) {
       document.getElementById("pdf-link").href = pdfUrl;
+      document.getElementById("protocolo-id").textContent = protocoloId || "Indisponível";
     } else {
       document.querySelector(".container").innerHTML = "<h2>Erro</h2><p>PDF não encontrado. Tente reenviar o formulário.</p>";
     }
