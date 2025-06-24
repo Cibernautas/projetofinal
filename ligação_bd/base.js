@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Envia para Google Apps Script
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbzAt4Ix5Nug-FxDzh3kTCuczHpnZ4NzTTmzDhH3k68IixGobSjAKp9wCteNHu-L93gvxA/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbw6ezakKh1mnlI51Xz4Lw7oXlAyq3gm-OC2j9GoaXz5_i4ZHCXU3AkTZ1owJIrk3P5neg/exec", {
                 method: "POST",
                 body: formData
             });
@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (result.status === "success" && result.pdf) {
                 sessionStorage.setItem("pdfUrl", result.pdf);
+                sessionStorage.setItem("denunciaId", result.id || "Desconhecido"); // <-- NOVO
                 form.reset();
                 signaturePad.clear();
                 previewsContainer.innerHTML = "";

@@ -7,7 +7,7 @@ function redirecionar(tipo) {
       window.location.href = 'iluminação/ilumi.html';
       break;
     case 'meioambiente':
-      window.location.href = 'meioambiente/mato.html';
+      window.location.href = 'mato/mato.html';
       break;
     default:
       alert('Tipo de formulário inválido');
