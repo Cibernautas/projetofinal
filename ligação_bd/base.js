@@ -72,11 +72,39 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
+    function validarCPF(cpf) {
+        cpf = cpf.replace(/[^\d]+/g, '');
+        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+
+        let soma = 0;
+        for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
+        let resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpf.charAt(9))) return false;
+
+        soma = 0;
+        for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
+        resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        return resto === parseInt(cpf.charAt(10));
+    }
+
+
+
     // Envio do formulário
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const submitButton = document.getElementById('submit-btn');
+        const submitButton = document.getElementById('submit-btn'); // <-- MOVIDO PARA CIMA
+
+        const documento = form.querySelector('input[name="Documento"]').value.trim();
+        if (documento && !validarCPF(documento)) {
+            alert("CPF inválido. Por favor, verifique o número inserido.");
+            submitButton.disabled = false;
+            submitButton.textContent = "Enviar";
+            return;
+        }
+
         submitButton.disabled = true;
         submitButton.textContent = "Enviando...";
 
