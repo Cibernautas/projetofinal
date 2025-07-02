@@ -25,6 +25,13 @@
     <label>CPF ou RG</label>
     <input type="text" name="Documento">
 
+    <label>E-mail para contato*</label>
+    <input type="email" name="Email" required>
+
+    <label>Telefone para contato*</label>
+    <input type="tel" name="Telefone" required>
+
+
     <label>Endereço ou Localização do Problema*</label>
     <textarea name="Localizacao" rows="3" required></textarea>
 
@@ -63,6 +70,22 @@
     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
       <button type="submit" id="submit-btn">Enviar</button>
       <small class="envio-aviso">O envio pode levar até 1 minuto.</small>
+    </div>
+    <div class="checkbox-lgpd">
+      <label>
+        <input type="checkbox" name="aceite_termos" required>
+        Eu li e aceito os <span id="ver-termos" style="color: #004aad; text-decoration: underline; cursor: pointer;">Termos de Serviço</span>
+      </label>
+
+      <div id="termos-box" style="display: none;">
+        <div class="termos-conteudo">
+          <h2>Política de Privacidade</h2>
+          <p>A sua privacidade é importante para nós. É política do DenunciasPMW respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site <a href="https://cibernautas.github.io/projetofinal/" target="_blank">DenunciasPMW</a>, e outros sites que possuímos e operamos.</p>
+          <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço...</p>
+          <!-- Você pode colar todo o restante do seu texto aqui -->
+          <p><strong>Esta política é efetiva a partir de 1 July 2025 12:33</strong></p>
+        </div>
+      </div>
     </div>
   </form>
 

@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Envia para Google Apps Script
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbz5MKnTKTuhrZqN4v-IgS83C9rB2VUC1vdTHPCYoa4RAfI2zfAc8HvVnlMI0tUMgviLSg/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbxReNcQbBcD6aYeRUGGJqylqAaFvIue4o_0wlL8pvyDMkI2dbuPk2BK98zm7SxRw7z-3A/exec", {
                 method: "POST",
                 body: formData
             });
@@ -173,4 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.textContent = "Enviar";
         }
     });
+});
+document.getElementById("ver-termos").addEventListener("click", function () {
+  const termosBox = document.getElementById("termos-box");
+  termosBox.style.display = termosBox.style.display === "none" ? "block" : "none";
 });
