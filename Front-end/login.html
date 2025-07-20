@@ -1,0 +1,73 @@
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+        <link rel="stylesheet" href="/Front-end/login.css" />
+        <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+        />
+        <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    </head>
+    <body>
+        <main id="form_container">
+        <form id="form">
+            <div id="form_header">
+            <h1 id="form_title">Login</h1>
+            
+            <button class="btn-default">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+            </div>
+
+            <div id="input_container">
+            <label class="form-label" for="email">Usuário</label>
+            <div class="input-field">
+                <i class="bx bxs-user"></i>
+                <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Digite seu e-mail"
+                required
+                />
+            </div>
+
+            <label class="form-label" for="senha">Senha</label>
+            <div class="input-field">
+                <i class="bx bxs-lock-alt"></i>
+                <input
+                type="password"
+                id="senha"
+                class="form-control"
+                placeholder="Digite sua senha"
+                required
+                />
+            </div>
+            </div>
+
+            <div class="remember-forgot" style="display: flex; justify-content: space-between; font-size: 14px;">
+            <label>
+                <input type="checkbox" />
+                Lembrar senha
+            </label>
+            <a href="resertar.html">Esqueci a senha</a>
+            </div>
+
+            <button type="submit" class="btn-default">Entrar</button>
+
+            <div class="register-link" style="text-align: center; font-size: 14px;">
+            <p>Não tem conta? <a href="/cadastro de login1/cad.html">Cadastre-se</a></p>
+            </div>
+        </form>
+        </main>
+
+        <script src="/Front-end/login.js"></script>
+    </body>
+    </html>
