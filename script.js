@@ -13,3 +13,5 @@ function redirecionar(tipo) {
       alert('Tipo de formulário inválido');
   }
 }
+
+

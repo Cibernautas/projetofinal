@@ -43,3 +43,16 @@ body {
 .menu-btn:hover {
   background-color: #00337f;
 }
+.resultado-consulta {
+  margin-top: 25px;
+  text-align: left;
+  font-size: 15px;
+  background: #f9fbfd;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccd1d9;
+}
+.resultado-consulta a {
+  color: #004aad;
+  text-decoration: underline;
+}
