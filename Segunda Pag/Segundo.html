@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uxers Tech</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/Segunda Pag/Segundo.css">
+    <link rel="stylesheet" href="/projetofinal/Segunda Pag/Segundo.css">
 </head>
 <body>
-    <!-- Banner superior -->
     <header class="banner">
         <h1>Bem-vindo ao site de denúncias de Palmas</h1>
     </header>
     
-    <!-- Barra de busca -->
     <div class="search-container">
         <div class="search-bar">
             <input type="text" class="search-input" placeholder="O que você procura?">
@@ -34,17 +32,14 @@
         </div>
     </div>
     
-    <!-- Abas de usuário -->
     <div class="user-tabs">
         <div class="tab active">Cidadão</div>
         <div class="tab">Empresa</div>
-        <div class="tab">Servidor</div>
     </div>
-    
-    <!-- Serviços em destaque -->
+
     <div class="services-container">
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card" id="denunciaBtn">
                 <div class="service-icon">
                     <i class="fas fa-file-invoice"></i>
                 </div>
@@ -80,5 +75,28 @@
             </div>
         </div>
     </div>
+
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <button class="close-btn" id="closeBtn">&times;</button>
+            <h2>Como Fazer uma Denúncia</h2>
+            <div class="tutorial-content">
+                <p>Siga os passos abaixo para realizar sua denúncia:</p>
+                <ol>
+                    <li><strong>Identificação:</strong> Cadastre-se no canto superior direito ou apenas faça login.</li>
+                    <li><strong>Detalhes da Denúncia:</strong> Descreva com clareza o fato ocorrido, incluindo local, data e horário.</li>
+                    <li><strong>Anexos:</strong> Caso possua, adicione fotos, documentos que comprovem a denúncia ou tire as fotos na hora.</li>
+                    <li><strong>Revisão:</strong> Confira todas os seus dados e informações da denúncia antes de enviar.</li>
+                    <li><strong>Termos:</strong> Faça sua assinatura digital e aceite os termos abaixo.</li>
+                    <li><strong>Envio:</strong> Clique em "Enviar" para finalizar o processo.</li>
+                </ol>
+                <div class="popup-footer">
+                    <p>Em caso de dúvidas, entre em contato com nossa central de atendimento:</p>
+                    <p><i class="fas fa-phone"></i> (63) 3212-0000 | <i class="fas fa-envelope"></i> techuxers@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Script.js"></script>
 </body>
 </html>
