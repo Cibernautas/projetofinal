@@ -1,3 +1,4 @@
+/* Reset e Estilos Base */
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +9,195 @@
 body {
     background-color: #f5f5f5;
     color: #333;
+    line-height: 1.6;
 }
 
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-content {
+    display: flex;
+    gap: 25px;
+}
+
+/* Layout de Colunas */
+.left-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+.right-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Bloco do Secretário */
+.secretary-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.secretary-header {
+    background: #f05a28;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+}
+
+.secretary-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    object-fit: cover;
+}
+
+.secretary-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.secretary-title {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.secretary-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Seção de Contato */
+.contact-section {
+    padding: 20px;
+}
+
+.contact-title {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-title i {
+    color: #f05a28;
+}
+
+.divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.contact-list {
+    list-style: none;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.contact-icon {
+    color: #f05a28;
+    margin-top: 3px;
+    font-size: 16px;
+    min-width: 20px;
+}
+
+/* Bloco Documentos */
+.documents-card {
+    background: #f05a28;
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.documents-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 40px;
+    opacity: 0.2;
+    color: #333;
+}
+
+.documents-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.documents-content {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 100px;
+}
+
+/* Bloco Competências */
+.competences-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.competences-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.scrollable-content {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.scrollable-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+    background: #f05a28;
+    border-radius: 10px;
+}
+
+.competences-list {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.competences-list li {
+    margin-bottom: 8px;
+}
+
+/* Banner */
 .banner {
     background-color: #003366;
     background-image: radial-gradient(#ffffff 1px, transparent 1px);
@@ -26,6 +214,7 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Search */
 .search-container {
     max-width: 900px;
     margin: 0 auto 2rem;
@@ -55,6 +244,7 @@ body {
     font-size: 1.2rem;
 }
 
+/* Filtros */
 .filters {
     display: flex;
     gap: 1rem;
@@ -85,6 +275,7 @@ body {
     color: white;
 }
 
+/* Tabs */
 .user-tabs {
     display: flex;
     max-width: 900px;
@@ -114,6 +305,7 @@ body {
     background-color: #FF6B00;
 }
 
+/* Serviços */
 .services-container {
     max-width: 900px;
     margin: 0 auto 3rem;
@@ -157,24 +349,19 @@ body {
     pointer-events: none; 
 }
 
-/* REMOVER MAIS TARDE */
-/*
-.button {
-    display: inline-block; 
-    padding: 10px 20px;
-    background-color: #4CAF50; 
-    color: white;
-    text-decoration: none; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.service-card .card-link {
+    text-decoration: none;   
+    color: inherit;          
+    display: block;          
+    width: 100%;
+    height: 100%;
 }
 
-.button:hover {
-    background-color: #3e8e41; 
+.service-card .card-link * {
+    text-decoration: none;
 }
-*/
 
+/* Popup */
 .popup-overlay {
     display: none;
     position: fixed;
@@ -270,37 +457,36 @@ body {
     color: #3498db;
 }
 
+/* Animações */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
 @keyframes slideUp {
-    from { 
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    to { 
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-@media (max-width: 768px) {
-    .popup-content {
-        width: 95%;
-        padding: 20px;
-    }
-    
-    .popup-content h2 {
-        font-size: 20px;
-    }
-    
-    .tutorial-content li {
-        font-size: 14px;
-    }
+@keyframes slideOutLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-50px); }
 }
 
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.slide-out {
+    animation: slideOutLeft 0.3s ease forwards;
+}
+
+.slide-in {
+    animation: slideInRight 0.3s ease forwards;
+}
+
+/* Footer */
 .footer {
     background-color: #0a2240;
     color: white;
@@ -332,38 +518,31 @@ body {
     vertical-align: middle;
 }
 
+/* Responsividade */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
 
-/* deslize pro lado */
+    .secretary-header {
+        flex-direction: column;
+        text-align: center;
+    }
 
-/* === Animação de slide lateral === */
-.slide-out {
-    animation: slideOutLeft 0.3s ease forwards;
+    .secretary-photo {
+        margin-bottom: 15px;
+    }
+
+    .popup-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .popup-content h2 {
+        font-size: 20px;
+    }
+
+    .tutorial-content li {
+        font-size: 14px;
+    }
 }
-.slide-in {
-    animation: slideInRight 0.3s ease forwards;
-}
-@keyframes slideOutLeft {
-    from { opacity: 1; transform: translateX(0); }
-    to   { opacity: 0; transform: translateX(-50px); }
-}
-@keyframes slideInRight {
-    from { opacity: 0; transform: translateX(50px); }
-    to   { opacity: 1; transform: translateX(0); }
-}
-
-
-
-/* Remove underline e herda cor no link internos de .service-card */
-.service-card .card-link {
-    text-decoration: none;   /* tira o sublinhado */
-    color: inherit;          /* herda a cor do .service-card */
-    display: block;          /* faz o <a> ocupar todo o card */
-    width: 100%;
-    height: 100%;
-}
-
-/* Garante que nenhum elemento interno volte a sublinhar */
-.service-card .card-link * {
-    text-decoration: none;
-}
-
