@@ -331,3 +331,39 @@ body {
     margin-left: 20px;
     vertical-align: middle;
 }
+
+
+/* deslize pro lado */
+
+/* === Animação de slide lateral === */
+.slide-out {
+    animation: slideOutLeft 0.3s ease forwards;
+}
+.slide-in {
+    animation: slideInRight 0.3s ease forwards;
+}
+@keyframes slideOutLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-50px); }
+}
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+
+
+/* Remove underline e herda cor no link internos de .service-card */
+.service-card .card-link {
+    text-decoration: none;   /* tira o sublinhado */
+    color: inherit;          /* herda a cor do .service-card */
+    display: block;          /* faz o <a> ocupar todo o card */
+    width: 100%;
+    height: 100%;
+}
+
+/* Garante que nenhum elemento interno volte a sublinhar */
+.service-card .card-link * {
+    text-decoration: none;
+}
+
