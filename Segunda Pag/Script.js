@@ -2,27 +2,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const denunciaBtn = document.getElementById('denunciaBtn');
     const popup = document.getElementById('popup');
     const closeBtn = document.getElementById('closeBtn');
-    
-    if(denunciaBtn && popup && closeBtn) {
-        denunciaBtn.addEventListener('click', function() {
-            popup.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeBtn.addEventListener('click', function() {
-            popup.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        });
-        
-        popup.addEventListener('click', function(e) {
-            if(e.target === popup) {
-                popup.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
-    } else {
-        console.error('Um ou mais elementos não foram encontrados no DOM');
+
+    function openPopup() {
+        popup.style.display = 'flex';
+        document.body.classList.add('popup-open');
     }
+
+    function closePopup() {
+        popup.style.display = 'none';
+        document.body.classList.remove('popup-open');
+    }
+
+    if(denunciaBtn) denunciaBtn.addEventListener('click', openPopup);
+    if(closeBtn) closeBtn.addEventListener('click', closePopup);
+    
+    if(popup) popup.addEventListener('click', function(e) {
+        if(e.target === popup) closePopup();
+    });
 });
 
 
@@ -35,16 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const empresaContent = `
          <div class="page-container">
-        <!-- Layout de duas colunas -->
         <div class="main-content">
-            <!-- Coluna Esquerda - Bloco do Secretário -->
+            <!--Coluna Esquerda-->
             <div class="left-column">
-                <div class="secretary-card">
-                    <div class="secretary-header">
-                        <img src="https://via.placeholder.com/120" alt="Foto do Secretário" class="secretary-photo">
-                        <div class="secretary-info">
-                            <span class="secretary-title">Secretário</span>
-                            <h2 class="secretary-name">Paulo Cézar Monteiro da Silva</h2>
+                <div class="empresa-card">
+                    <div class="empresa-header">
+                        <img src="../img/LogoPreta.png" alt="Logo" class="empresa-logo">
+                        <div class="empresa-info">
+                            <span class="empresa-title">Uxers Tech</span>
+                            <h2 class="empresa-name">Empresa de técnologia</h2>
                         </div>
                     </div>
                    
@@ -62,36 +57,43 @@ document.addEventListener('DOMContentLoaded', () => {
                             </li>
                             <li>
                                 <i class="fas fa-envelope contact-icon"></i>
-                                <span>E-mail: gabinete.seisp@palmas.to.gov.br</span>
+                                <span>E-mail: techuxers@gmail.com</span>
                             </li>
                             <li>
                                 <i class="fas fa-clock contact-icon"></i>
-                                <span>Horário: Segunda a sexta, das 13 às 19 horas</span>
+                                <span>Horário: Segunda a sexta, das 08 às 19 horas</span>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
            
-            <!-- Coluna Direita - Blocos de Conteúdo -->
+            <!-- Coluna Direita -->
             <div class="right-column">
                 <!-- Bloco Documentos -->
                 <div class="documents-card">
                     <i class="fas fa-folder-open documents-icon"></i>
-                    <h2 class="documents-title">Documentos e Informações</h2>
+                    <h2 class="documents-title">Informações</h2>
                     <div class="documents-content">
-                        <p>Documentos oficiais, editais e informações relevantes da secretaria.</p>
+                        <p>Fundada em 28 de janeiro de 2024 em Palmas-TO, a Uxers Tech nasceu da visão de três técnicos, identificando a necessidade urgente de modernizar a gestão urbana através da tecnologia.
+Nosso primeiro produto, o SIGOP Palmas, é lançado em junho de 2025 como projeto-piloto em parceria com a Prefeitura Municipal, visando alcançar impressionantes 3.500 usuários registrados nos primeiros 3 meses.</p>
                     </div>
                 </div>
                
-                <!-- Bloco Competências -->
                 <div class="competences-card">
-                    <h2 class="competences-title">Competências</h2>
                     <div class="scrollable-content">
                         <ol class="competences-list">
-                            <p>oirje8teei9tgr087tyhgrs7ugh0w98r7t</p>
-                        </ol>
-                        <p>A Secretaria Municipal de Infraestrutura e Obras Públicas tem como missão garantir a qualidade da infraestrutura urbana, promovendo o desenvolvimento ordenado da cidade e o bem-estar da população.</p>
+                            <p>A Uxers Tech é uma empresa de inovação digital comprometida com o desenvolvimento de soluções tecnológicas que promovem
+                             cidades mais inteligentes e participativas. Especializada em plataformas cívicas, nossa empresa criou o SIGOP Palmas (Sistema
+                              Integrado de Gestão de Ocorrências de Infraestrutura Pública), uma ferramenta que revoluciona a forma como os cidadãos interagem
+                               com os serviços urbanos. Nosso foco principal é oferecer uma plataforma integrada de gestão de ocorrências, permitindo que os
+                                moradores de Palmas reportem problemas de infraestrutura de forma rápida e eficiente, como buracos em vias, falhas na iluminação
+                                 pública ou questões ambientais. Através de um design intuitivo e acessível, garantimos que qualquer cidadão possa contribuir para
+                                  a melhoria da cidade, independentemente de seu conhecimento tecnológico. Além de facilitar o registro de ocorrências, o SIGOP Palmas
+                                   foi desenvolvido para gerar dados estratégicos, ajudando a prefeitura a identificar padrões, priorizar intervenções e otimizar recursos
+                                    públicos. A transparência é um dos nossos pilares: todos os usuários podem acompanhar o status de suas solicitações, criando um ciclo de
+                                     confiança entre governo e população. Na Uxers Tech, acreditamos que a tecnologia deve servir como ponte entre as necessidades dos cidadãos
+                                      e a capacidade de resposta do poder público. Combinamos design centrado no usuário, análise de dados e integração com órgãos municipais para criar soluções que não apenas resolvem problemas, mas também fortalecem a participação social.</p></ol>
                     </div>
                 </div>
             </div>

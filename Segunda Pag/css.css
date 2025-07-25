@@ -37,14 +37,14 @@ body {
 }
 
 /* Bloco do Secretário */
-.secretary-card {
+.empresa-card {
     background: white;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.secretary-header {
+.empresa-header {
     background: #f05a28;
     padding: 20px;
     display: flex;
@@ -53,7 +53,7 @@ body {
     color: white;
 }
 
-.secretary-photo {
+.empresa-logo {
     width: 120px;
     height: 120px;
     border-radius: 10px;
@@ -61,23 +61,22 @@ body {
     object-fit: cover;
 }
 
-.secretary-info {
+.empresa-info {
     display: flex;
     flex-direction: column;
 }
 
-.secretary-title {
+.empresa-title {
     font-size: 14px;
     opacity: 0.9;
     margin-bottom: 5px;
 }
 
-.secretary-name {
+.empresa-name {
     font-size: 20px;
     font-weight: 700;
 }
 
-/* Seção de Contato */
 .contact-section {
     padding: 20px;
 }
@@ -119,7 +118,6 @@ body {
     min-width: 20px;
 }
 
-/* Bloco Documentos */
 .documents-card {
     background: #f05a28;
     border-radius: 15px;
@@ -153,7 +151,6 @@ body {
     min-height: 100px;
 }
 
-/* Bloco Competências */
 .competences-card {
     background: white;
     border-radius: 15px;
@@ -197,7 +194,6 @@ body {
     margin-bottom: 8px;
 }
 
-/* Banner */
 .banner {
     background-color: #003366;
     background-image: radial-gradient(#ffffff 1px, transparent 1px);
@@ -244,7 +240,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* Filtros */
 .filters {
     display: flex;
     gap: 1rem;
@@ -275,7 +270,6 @@ body {
     color: white;
 }
 
-/* Tabs */
 .user-tabs {
     display: flex;
     max-width: 900px;
@@ -305,7 +299,6 @@ body {
     background-color: #FF6B00;
 }
 
-/* Serviços */
 .services-container {
     max-width: 900px;
     margin: 0 auto 3rem;
@@ -524,12 +517,14 @@ body {
         flex-direction: column;
     }
 
-    .secretary-header {
+    .empresa-header {
         flex-direction: column;
-        text-align: center;
+        text-align: left;
+        width: 10px;
+        padding: 15px;
     }
 
-    .secretary-photo {
+    .empresa-logo {
         margin-bottom: 15px;
     }
 
@@ -545,4 +540,20 @@ body {
     .tutorial-content li {
         font-size: 14px;
     }
+}
+
+.popup-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+.popup-overlay {
+    z-index: 9999;
+}
+
+body.popup-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
 }
