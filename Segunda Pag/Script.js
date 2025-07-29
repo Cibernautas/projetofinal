@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const denunciaBtn = document.getElementById('denunciaBtn');
-    const popup = document.getElementById('popup');
-    const closeBtn = document.getElementById('closeBtn');
-
-    const manualBtn = document.getElementById('manualBtn');
-    const manualPopup = document.getElementById('manualPopup');
-    const closeManualBtn = document.getElementById('closeManualBtn');
-
+    // Funções para manipulação de popups
     function openPopup(popupElement) {
         popupElement.style.display = 'flex';
         document.body.classList.add('popup-open');
@@ -17,12 +10,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.remove('popup-open');
     }
 
+    // Event listeners para popups de denúncia
+    const denunciaBtn = document.getElementById('denunciaBtn');
+    const popup = document.getElementById('popup');
+    const closeBtn = document.getElementById('closeBtn');
+
     if(denunciaBtn) denunciaBtn.addEventListener('click', () => openPopup(popup));
     if(closeBtn) closeBtn.addEventListener('click', () => closePopup(popup));
     
     if(popup) popup.addEventListener('click', function(e) {
         if(e.target === popup) closePopup(popup);
     });
+
+    // Event listeners para popups do manual
+    const manualBtn = document.getElementById('manualBtn');
+    const manualPopup = document.getElementById('manualPopup');
+    const closeManualBtn = document.getElementById('closeManualBtn');
 
     if(manualBtn) manualBtn.addEventListener('click', () => openPopup(manualPopup));
     if(closeManualBtn) closeManualBtn.addEventListener('click', () => closePopup(manualPopup));
@@ -31,9 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if(e.target === manualPopup) closePopup(manualPopup);
     });
 
+    // Lógica das abas
     const tabs = document.querySelectorAll('.tab');
     const servicesContainer = document.querySelector('.services-container');
-
     const cidadaoContent = servicesContainer.innerHTML;
 
     const empresaContent = `
@@ -126,13 +129,74 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 setTimeout(() => servicesContainer.classList.remove('slide-in'), 300);
                 
-                // Reatribui os eventos após trocar o conteúdo
                 const newDenunciaBtn = document.getElementById('denunciaBtn');
                 const newManualBtn = document.getElementById('manualBtn');
                 
                 if(newDenunciaBtn) newDenunciaBtn.addEventListener('click', () => openPopup(popup));
                 if(newManualBtn) newManualBtn.addEventListener('click', () => openPopup(manualPopup));
+                
+                setupSearchFunctionality();
             }, 300);
         });
     });
+
+    function setupSearchFunctionality() {
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
+
+        if (!searchInput || !searchButton) return;
+
+        const searchableContents = [
+            {
+                title: "Como Fazer uma Denúncia",
+                content: document.querySelector('#popup .tutorial-content')?.innerText || '',
+                openFunction: () => openPopup(popup)
+            },
+            {
+                title: "Manual do Usuário",
+                content: document.querySelector('#manualPopup .tutorial-content')?.innerText || '',
+                openFunction: () => openPopup(manualPopup)
+            }
+        ];
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                alert("Por favor, digite algo para pesquisar");
+                return;
+            }
+
+            const results = searchableContents.filter(item => 
+                item.title.toLowerCase().includes(searchTerm) || 
+                item.content.toLowerCase().includes(searchTerm)
+            );
+
+            if (results.length === 0) {
+                alert("Nenhum resultado encontrado");
+                return;
+            }
+
+            if (results.length === 1) {
+                results[0].openFunction();
+            } else {
+                const resultText = results.map((r, i) => 
+                    `${i+1}. ${r.title}`).join('\n');
+                const choice = prompt(`Foram encontrados vários resultados:\n${resultText}\nDigite o número do que deseja ver:`);
+                
+                if (choice && results[Number(choice)-1]) {
+                    results[Number(choice)-1].openFunction();
+                }
+            }
+        }
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    }
+
+    setupSearchFunctionality();
 });

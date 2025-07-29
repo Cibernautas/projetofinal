@@ -51,7 +51,6 @@ body {
     gap: 25px;
 }
 
-/* Layout de Colunas */
 .left-column {
     flex: 1;
     min-width: 300px;
@@ -64,7 +63,6 @@ body {
     gap: 25px;
 }
 
-/* Bloco do Secretário */
 .empresa-card {
     background: white;
     border-radius: 15px;
@@ -238,7 +236,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Search */
 .search-container {
     max-width: 900px;
     margin: 0 auto 2rem;
@@ -266,31 +263,6 @@ body {
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     font-size: 1.2rem;
-}
-
-.filters {
-    display: flex;
-    gap: 1rem;
-}
-
-.filter {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-.filter.services {
-    background-color: #FF6B00;
-    color: white;
-}
-
-.filter.transparency {
-    background-color: #4CAF50;
-    color: white;
 }
 
 .filter.government {
@@ -378,11 +350,10 @@ body {
     height: 100%;
 }
 
-.service-card .card-link * {
+.service-card .card-link  {
     text-decoration: none;
 }
 
-/* Popup */
 .popup-overlay {
     display: none;
     position: fixed;
@@ -565,20 +536,4 @@ body {
     .tutorial-content li {
         font-size: 14px;
     }
-}
-
-.popup-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-}
-
-.popup-overlay {
-    z-index: 9999;
-}
-
-body.popup-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
 }
