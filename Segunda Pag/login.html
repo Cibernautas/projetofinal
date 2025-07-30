@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    /* Estilos simples para o login.html */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f2f5;
+      margin: 0;
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    form {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 350px;
+    }
+    label {
+      display: block;
+      margin-bottom: 15px;
+      text-align: left;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #FF6B00;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #e05e00;
+    }
+    #errorMessage {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form id="loginForm">
+    <h2>Login</h2>
+    <label>Usuário:
+      <input type="text" id="username" required>
+    </label><br>
+    <label>Senha:
+      <input type="password" id="password" required>
+    </label><br>
+    <button type="submit">Entrar</button>
+    <p id="errorMessage" style="color: red;"></p>
+    <p style="margin-top: 20px;">Ou</p>
+    <a href="http://localhost:5000/auth/google" style="display: inline-block; padding: 10px 20px; background-color: #4285F4; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; margin-top: 10px;">Entrar com Google</a>
+  </form>
+
+  <script>
+    // ... (parte do código do server.js) ...
+
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    // Redirecione para a página do seu frontend após login do Google
+    res.redirect('http://localhost:3000/index.html'); // Aponta para o index.html na raiz
+  }
+);
+
+// ... (restante do código do server.js) ...
+  </script>
+</body>
+</html>

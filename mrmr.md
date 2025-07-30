@@ -1,0 +1,1 @@
+mongodb+srv://denunciassigop:<SenhaFormal2525>@denunciaspalmas.b3r6mnc.mongodb.net/?retryWrites=true&w=majority&appName=DenunciasPalmas

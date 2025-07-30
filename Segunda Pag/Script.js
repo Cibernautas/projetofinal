@@ -200,3 +200,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setupSearchFunctionality();
 });
+
+
+//Login google
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (seu código dos popups) ...
+
+    const denunciasLink = document.getElementById('denunciasLink');
+    if (denunciasLink) {
+        denunciasLink.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const loggedInLocal = localStorage.getItem('loggedIn');
+            fetch('http://localhost:5000/auth/current_user')
+                .then(response => {
+                    if (response.ok && response.headers.get("content-length") !== "0") {
+                        return response.json();
+                    }
+                    return null;
+                })
+                .then(user => {
+                    if (user || loggedInLocal === 'true') {
+                        window.location.href = '/index.html'; // Redireciona para o index.html na raiz
+                    } else {
+                        window.location.href = '/Segunda Pag/login.html'; // Redireciona para o login.html na Segunda Pag
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao verificar status de login:', error);
+                    window.location.href = '/Segunda Pag/login.html'; // Redireciona para o login.html em caso de erro
+                });
+        });
+    }
+    // ... (restante do seu código) ...
+});
