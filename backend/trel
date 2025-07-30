@@ -1,6 +1,0 @@
-GOOGLE_CLIENT_ID=721847337109-ab3qu34sq61h77l4rivs2g0dbol3lsn2.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
-
-SESSION_SECRET=1zEKsLx1K2Aj8rWoV2c3PG2EHEqT3nZX8ebM2Yrml2o  # chave segura gerada automaticamente
-
-MONGO_URI=mongodb+srv://denunciassigop:SenhaFormal25267@denunciaspalmas.b3r6mnc.mongodb.net/sigop?retryWrites=true&w=majority&appName=DenunciasPalmas
