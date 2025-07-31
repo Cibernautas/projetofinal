@@ -1,0 +1,215 @@
+/* Reset e Estilos Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-content {
+    display: flex;
+    gap: 25px;
+}
+
+/* Layout de Colunas */
+.left-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+.right-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Bloco do Secretário */
+.secretary-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.secretary-header {
+    background: #f05a28;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+}
+
+.secretary-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    object-fit: cover;
+}
+
+.secretary-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.secretary-title {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.secretary-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Seção de Contato */
+.contact-section {
+    padding: 20px;
+}
+
+.contact-title {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-title i {
+    color: #f05a28;
+}
+
+.divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.contact-list {
+    list-style: none;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.contact-icon {
+    color: #f05a28;
+    margin-top: 3px;
+    font-size: 16px;
+    min-width: 20px;
+}
+
+/* Bloco Documentos */
+.documents-card {
+    background: #f05a28;
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.documents-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 40px;
+    opacity: 0.2;
+    color: #333;
+}
+
+.documents-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 50px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.documents-content {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 100px;
+}
+
+/* Bloco Competências */
+.competences-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.competences-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.scrollable-content {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Customizando a barra de rolagem */
+.scrollable-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+    background: #f05a28;
+    border-radius: 10px;
+}
+
+.competences-list {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.competences-list li {
+    margin-bottom: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+   
+    .secretary-header {
+        flex-direction: column;
+        text-align: center;
+    }
+   
+    .secretary-photo {
+        margin-bottom: 15px;
+    }
+}
