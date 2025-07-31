@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Funções para manipulação de popups
     function openPopup(popupElement) {
         popupElement.style.display = 'flex';
         document.body.classList.add('popup-open');
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if(e.target === manualPopup) closePopup(manualPopup);
     });
 
-    // Lógica das abas
     const tabs = document.querySelectorAll('.tab');
     const servicesContainer = document.querySelector('.services-container');
     const cidadaoContent = servicesContainer.innerHTML;
