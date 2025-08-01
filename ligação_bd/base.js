@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Envia para Google Apps Script
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbxReNcQbBcD6aYeRUGGJqylqAaFvIue4o_0wlL8pvyDMkI2dbuPk2BK98zm7SxRw7z-3A/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbx9JoMVNzsc4x1KlnW9Tom2_yLDW_vXPyGzgkhe4ExLuzOvStbUt-Okj83S_0iDikGuig/exec", {
                 method: "POST",
                 body: formData
             });
