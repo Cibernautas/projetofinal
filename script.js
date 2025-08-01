@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="left-column">
                     <div class="empresa-card">
                         <div class="empresa-header">
-                            <img src="img/LogoPreta.png" alt="Logo" class="empresa-logo">
+                            <img src="Img/LogoPreta.png" alt="Logo" class="empresa-logo">
                             <div class="empresa-info">
                                 <span class="empresa-title">Uxers Tech</span>
                                 <h2 class="empresa-name">Empresa de técnologia</h2>
